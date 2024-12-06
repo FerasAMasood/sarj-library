@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 const booksDir = path.join(process.cwd(), 'public', 'books');
 
 interface AIProviderResponse {
+  choices: any;
   lang: never[];
   sentiment_analysis: any;
   plot_summary: any;
@@ -57,6 +58,7 @@ const processChunk = async (chunk: string): Promise<AIProviderResponse> => {
       try {
         return JSON.parse(choice.message?.content.replace("```", "").replace("json", ""));
       } catch (e) {
+        console.log(e)
         return {};
       }
     });
@@ -92,7 +94,7 @@ async function processChunksSequentially(chunks: string[]): Promise<AIProviderRe
 const splitTextIntoChunks = (text: string, chunkSize = 16000): string[] => {
   let paragraphs = text.split("\r\n");
   paragraphs = paragraphs.filter(p => p.length > 0);
-  const chunks = [];
+  const chunks: string[] = [];
   let tmp = "";
   paragraphs.forEach((p, i) => {
     if (p.length < chunkSize) {
@@ -107,7 +109,7 @@ const splitTextIntoChunks = (text: string, chunkSize = 16000): string[] => {
   });
   return chunks;
 };
-async function insertCharacters(mainChars, bookId: number) {
+async function insertCharacters(mainChars: any[], bookId: number) {
   try {
     // Check if main_chars is available in the response and it's an array
 
@@ -205,6 +207,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
            return JSON.parse(choice.message?.content.replace("```", "").replace("json", ""));
         } catch (e) {
+          console.log(e)
           return {};
         }
       });

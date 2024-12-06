@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     );
     
     // Check or create metadata for translators
-    let translatorRecords = [];
+    let translatorRecords:any[] = [];
     if (translators.length > 0) {
     translatorRecords = await Promise.all(
       translators.map(async (translator: any) => {
@@ -65,6 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const bookshelfRecords = await Promise.all(
       bookshelves.map(async (shelf: string) => {
         const existingShelf = await prisma.bookshelf.findUnique({
+          // @ts-ignore
           where: { name: shelf },
         });
         if (existingShelf) return existingShelf;
@@ -79,6 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const subjectRecords = await Promise.all(
       subjects.map(async (subject: string) => {
         const existingSubject = await prisma.subject.findUnique({
+          // @ts-ignore
           where: { name: subject },
         });
         if (existingSubject) return existingSubject;
@@ -88,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
       })
     );
-    const bookData = {
+    const bookData:any = {
       id,
       title,
       media_type,
@@ -114,7 +116,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         })),
       }
     }
-    if (translatorRecords?.lengh > 0) {
+    if (translatorRecords?.length > 0) {
        bookData["translators"] = {
         create: translatorRecords.map((translator) => ({
           person_id: translator.id,

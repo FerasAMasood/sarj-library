@@ -68,7 +68,7 @@ model BookTranslator {
 model BookBookshelf {
   book_id  Int
   shelf_id Int
-  book     Book      @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  book     Book      @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade) @unique
   shelf    Bookshelf @relation(fields: [shelf_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([book_id, shelf_id])
@@ -122,6 +122,6 @@ model Bookshelf {
 
 model Subject {
   id    Int           @id @default(autoincrement())
-  name  String
+  name  String        @unique
   books BookSubject[] // Relation to BookSubject
 }

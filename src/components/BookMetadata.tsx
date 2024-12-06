@@ -1,21 +1,9 @@
 import React, { useContext } from "react";
 import { LanguageContext } from '../contexts/LanguageContext';
-
-interface Author {
-  name: string;
-}
+import { Book } from "./BooksList";
 
 interface BookMetadataProps {
-  book: {
-    aiData: any;
-    title: string;
-    authors: Author[];
-    subjects: string[];
-    languages: string[];
-    translators: Author[];
-    bookshelves: any;
-    local?:boolean;
-  };
+  book: Book;
   aiData?:any;
   aiIsLoading?: boolean;
   analysisError?: string;
@@ -53,13 +41,13 @@ const BookMetadata: React.FC<BookMetadataProps> = ({ book, aiData, aiIsLoading =
       </p>)}
 
       <p className="book-meta">
-        <strong>Subjects:</strong> {book.subjects.join(", ")}
+        <strong>Subjects:</strong> {book.subjects?.join(", ")}
       </p>
       <p className="book-meta">
-          <strong>Book shelves:</strong> {book.bookshelves.join(", ")}
+          <strong>Book shelves:</strong> {book?.bookshelves?.join(", ")}
       </p>
       <p className="book-meta">
-        <strong>Languages:</strong> {getLanguageNames(book.languages)}
+        <strong>Languages:</strong> {getLanguageNames(book.languages || [])}
       </p>
       <div>
       {aiIsLoading && <p>Loading book analysis...</p>}

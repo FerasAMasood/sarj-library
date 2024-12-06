@@ -23,6 +23,8 @@ const Modal: React.FC<ModalProps> = ({ title, content, onConfirm, onClose, isOpe
         Close
       </button>
     </div>
+    {!!error?.length && (<p className='error-msg'>error</p>)}
+    {isLoading && (<p>Loading...</p>)}
     <div className="book-text">{content}</div>
     {showConfirmButton && onConfirm && (
       <div className="flex justify-end space-x-4">

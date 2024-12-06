@@ -8,13 +8,9 @@ import Modal from "./Modal";
 import useBookAnalysisAPI from "../hooks/useBookAnalysis"; // Import the custom hook
 import {Book} from './BooksList';
 
-interface Author {
-  name: string;
-}
-
 interface BookDetailsProps {
   book: Book;
-  onBookSaved: (book: any) => void;
+  onBookSaved: (book: Book) => void;
   onClose: () => void;
   onBookProcessed: ()=> void;
 }
@@ -41,7 +37,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, onBookSaved, onClose, o
       setIsBookDownloaded(true);
       onBookSaved(book);
      const res = fetchBookAnalysis(); 
-     res.then((e)=>onBookProcessed());
+     res.then(()=>onBookProcessed());
     }
   };
 
@@ -56,7 +52,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, onBookSaved, onClose, o
 
   const handleProcessClicked = ()=>{
     const res = fetchBookAnalysis(); 
-    res.then((e)=>onBookProcessed());
+    res.then(()=>onBookProcessed());
   }
 
   return (
@@ -66,7 +62,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, onBookSaved, onClose, o
       </button>
 
       <ActionButtons
-        isBookDownloaded={isBookDownloaded}
+        isBookDownloaded={isBookDownloaded ?? false}
         onGetBook={handleGetBook}
         onViewBook={handleViewBook}
         onProccessBookClicked={handleProcessClicked}
@@ -74,7 +70,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, onBookSaved, onClose, o
       />
       {downloadError && <p className="error-msg">{downloadError}</p>}
       {saveError && <p className="error-msg">{saveError}</p>}
-      <BookMetadata book={book} aiData ={data} aiIsLoading={loading} analysisError={analysisError || ""} />
+      <BookMetadata book={book} aiData ={data} aiIsLoading={loading ?? false} analysisError={analysisError || ""} />
       {showModal && (
         <Modal
           isOpen={showModal}

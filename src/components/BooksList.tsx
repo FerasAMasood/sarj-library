@@ -5,9 +5,11 @@ export interface Author {
 }
 
 export interface Book {
+  bookshelves: any;
   id: number;
   title: string;
   authors: Author[];
+  translators?: Author[];
   subjects?: string[];
   languages?: string[];
   local?: boolean; 
