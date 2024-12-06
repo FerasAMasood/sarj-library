@@ -7,11 +7,14 @@ interface Author {
 
 interface BookMetadataProps {
   book: {
+    aiData: any;
     title: string;
     authors: Author[];
-    download_count: number;
     subjects: string[];
     languages: string[];
+    translators: Author[];
+    bookshelves: any;
+    local?:boolean;
   };
   aiData?:any;
   aiIsLoading?: boolean;

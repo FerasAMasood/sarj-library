@@ -7,9 +7,11 @@ interface ModalProps {
   onClose: () => void; // Close handler
   isOpen: boolean;
   showConfirmButton?: boolean; // Whether to show confirm button
+  isLoading?: boolean;
+  error?: string | null;
 }
 
-const Modal: React.FC<ModalProps> = ({ title, content, onConfirm, onClose, isOpen, showConfirmButton = false }) => {
+const Modal: React.FC<ModalProps> = ({ title, content, onConfirm, onClose, isOpen, showConfirmButton = false, isLoading= false, error="" }) => {
   if (!isOpen) return null;
 
   return (

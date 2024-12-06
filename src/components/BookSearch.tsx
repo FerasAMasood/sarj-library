@@ -13,7 +13,7 @@ const BookSearch: React.FC<BookSearchProps> = ({ onBookSelect, existingBooks }) 
 
   // Filter results to show only books of type "text"
   const filteredResults = results.filter(
-    (book) => book.media_type.toLowerCase() === 'text'
+    (book:any) => book.media_type.toLowerCase() === 'text'
   );
 
   // Check if a book is already in the system

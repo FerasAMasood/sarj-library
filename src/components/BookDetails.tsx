@@ -6,21 +6,14 @@ import BookMetadata from "./BookMetadata";
 import ActionButtons from "./ActionButtons";
 import Modal from "./Modal";
 import useBookAnalysisAPI from "../hooks/useBookAnalysis"; // Import the custom hook
+import {Book} from './BooksList';
 
 interface Author {
   name: string;
 }
 
 interface BookDetailsProps {
-  book: {
-    id: number;
-    title: string;
-    authors: Author[];
-    download_count: number;
-    subjects: string[];
-    languages: string[];
-    local: boolean; 
-  };
+  book: Book;
   onBookSaved: (book: any) => void;
   onClose: () => void;
   onBookProcessed: ()=> void;
@@ -81,7 +74,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, onBookSaved, onClose, o
       />
       {downloadError && <p className="error-msg">{downloadError}</p>}
       {saveError && <p className="error-msg">{saveError}</p>}
-      <BookMetadata book={book} aiData ={data} aiIsLoading={loading} aiError={analysisError} />
+      <BookMetadata book={book} aiData ={data} aiIsLoading={loading} analysisError={analysisError || ""} />
       {showModal && (
         <Modal
           isOpen={showModal}

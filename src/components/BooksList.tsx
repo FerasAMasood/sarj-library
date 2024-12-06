@@ -8,6 +8,10 @@ export interface Book {
   id: number;
   title: string;
   authors: Author[];
+  subjects?: string[];
+  languages?: string[];
+  local?: boolean; 
+  aiData?: any;
 }
 
 interface BooksListProps {
@@ -35,7 +39,7 @@ const BooksList: React.FC<BooksListProps> = ({ onBookClick, onDeleteClick, books
         {books?.map((book) => (
           <li key={book.id} className="items-row">
             <div className="item-cell">{book.title}</div>
-            <div className="item-cell">{book.authors.map((author) => author.name).join(', ')}</div>
+            <div className="item-cell">{book.authors?.map((author) => author.name).join(', ')}</div>
             <div className="item-cell action-btns-cell">
               <button className='success-msg' onClick={() => onBookClick(book)}>Show book details</button>
               <button className='error-msg' onClick={() => onDeleteClick(book.id)}>Delete</button>
